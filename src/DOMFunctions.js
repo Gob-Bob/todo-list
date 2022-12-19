@@ -1,5 +1,3 @@
-// This file is only used for creating DOM related functions
-
 const documentBody = document.body
 
 export const create = (type, className, innerText, parent) => {
