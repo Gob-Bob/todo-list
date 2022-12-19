@@ -20,14 +20,23 @@ export const sidebar = () => {
             return string
         }
     }
-    const createContentTab = () => {
-        return DOMFunctions.createTitleContentContainer('project-details-container', 'project-details-title', 'Project Details', 'project-details-content', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta, leo in aliquam egestas, lorem diam eleifend ex, eu pellentesque nibh libero in augue. Quisque justo neque, venenatis et nulla non, pulvinar malesuada libero. In ut urna ac neque finibus ullamcorper in a quam. Mauris a odio vitae odio euismod fermentum eu eu odio. Aliquam ac tempor sem. Aliquam a dictum urna, vel rutrum nunc. Aliquam consequat sodales eros, eu rutrum dui condimentum id. Aenean finibus dui nec risus accumsan, sit amet tristique odio congue. Duis at nulla diam. Morbi egestas ex et augue feugiat, semper faucibus lorem rhoncus. Proin justo orci, bibendum quis tellus egestas, rutrum mollis risus. Quisque egestas finibus ligula nec ultrices. Duis laoreet, purus interdum tincidunt sodales, massa massa elementum sapien, sed imperdiet diam lectus eu mauris. Quisque fringilla dolor viverra, aliquet massa quis, molestie eros. Fusce non blandit nulla. Integer tempor enim ac tellus fringilla porttitor et eget mauris. Nulla sodales enim a ipsum posuere sollicitudin. Pellentesque pretium dapibus felis lobortis pellentesque. Nulla venenatis non enim id cursus. Proin et dolor bibendum sapien tristique tempor quis a neque. Nullam in lectus tellus. Aliquam accumsan gravida ligula sodales imperdiet. Curabitur dapibus tellus arcu. Vivamus non placerat diam. Cras fringilla congue dui ac tristique. Nullam nisl erat, auctor nec tellus eu, ultrices sagittis odio. Sed hendrerit ornare risus et commodo. Nam quis imperdiet ipsum. Donec accumsan dapibus risus, nec euismod nisl volutpat nec. Nulla bibendum, massa lobortis condimentum sodales, ipsum nibh sodales ipsum, ac fringilla tortor orci vel felis.', mainContainer)
+    const createContentTab = (title) => {
+        DOMFunctions.createTitleContentContainer('project-details-container', 'project-details-title', title, 'project-details-content', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta, leo in aliquam egestas, lorem diam eleifend ex, eu pellentesque nibh libero in augue. Quisque justo neque, venenatis et nulla non, pulvinar malesuada libero. In ut urna ac neque finibus ullamcorper in a quam. Mauris a odio vitae odio euismod fermentum eu eu odio. Aliquam ac tempor sem. Aliquam a dictum urna, vel rutrum nunc. Aliquam consequat sodales eros, eu rutrum dui condimentum id. Aenean finibus dui nec risus accumsan, sit amet tristique odio congue. Duis at nulla diam. Morbi egestas ex et augue feugiat, semper faucibus lorem rhoncus. Proin justo orci, bibendum quis tellus egestas, rutrum mollis risus. Quisque egestas finibus ligula nec ultrices. Duis laoreet, purus interdum tincidunt sodales, massa massa elementum sapien, sed imperdiet diam lectus eu mauris. Quisque fringilla dolor viverra, aliquet massa quis, molestie eros. Fusce non blandit nulla. Integer tempor enim ac tellus fringilla porttitor et eget mauris. Nulla sodales enim a ipsum posuere sollicitudin. Pellentesque pretium dapibus felis lobortis pellentesque. Nulla venenatis non enim id cursus. Proin et dolor bibendum sapien tristique tempor quis a neque. Nullam in lectus tellus. Aliquam accumsan gravida ligula sodales imperdiet. Curabitur dapibus tellus arcu. Vivamus non placerat diam. Cras fringilla congue dui ac tristique. Nullam nisl erat, auctor nec tellus eu, ultrices sagittis odio. Sed hendrerit ornare risus et commodo. Nam quis imperdiet ipsum. Donec accumsan dapibus risus, nec euismod nisl volutpat nec. Nulla bibendum, massa lobortis condimentum sodales, ipsum nibh sodales ipsum, ac fringilla tortor orci vel felis.', mainContainer)
     }
-    let projectsArray = []
-    const viewProjectDetails = () => {
-        projectsArray.forEach(project => {
-            project.addEventListener('click', () => {
-                console.log('Hello world!')
+    const setupTabs = () => {
+        const allTabs = document.querySelectorAll('.sidebar-project')
+        const allTabContent = document.querySelectorAll('.project-details-container')
+        
+        allTabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                allTabContent.forEach(content => {
+                    content.classList.remove('content-active')
+                })
+                allTabs.forEach(tab => {
+                    tab.classList.remove('tab-active')
+                })
+                allTabs[index].classList.add('tab-active')
+                allTabContent[index].classList.add('content-active')
             })
         })
     }
@@ -51,11 +60,11 @@ export const sidebar = () => {
         }
         input.setAttribute('placeholder', 'Project Name')
         setButton.addEventListener('click', () => {
-            let newProject = DOMFunctions.create('div', 'sidebar-project', truncate(input.value, 12), parent)
-            projectsArray.push(newProject)
-            input.value = ''
+            DOMFunctions.create('div', 'sidebar-project', truncate(input.value, 12), parent)
             closePopup()
-            viewProjectDetails()
+            createContentTab(input.value)
+            setupTabs()
+            input.value = ''
         })
         cancelButton.addEventListener('click', () => {
             closePopup()

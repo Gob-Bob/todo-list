@@ -81,12 +81,15 @@ body {
     font-weight: 600;
 }
 .tab-active {
-    display: flex;
+    display: flex !important;
     background: white;
+    justify-content: center;
+    align-items: center;
 }
 .content-active {
-    display: flex;
+    display: flex !important;
 }
 .project-details-container {
     display: none;
+    flex-direction: column;
 }
