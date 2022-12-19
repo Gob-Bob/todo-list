@@ -80,7 +80,13 @@ body {
     border-radius: 10px;
     font-weight: 600;
 }
-
+.tab-active {
+    display: flex;
+    background: white;
+}
+.content-active {
+    display: flex;
+}
 .project-details-container {
-    
+    display: none;
 }
