@@ -1,5 +1,3 @@
-const documentBody = document.body
-
 export const create = (type, className, innerText, parent) => {
     const element = document.createElement(type)
     element.classList.add(className)
@@ -12,4 +10,28 @@ export const createTitleContentContainer = (containerClassName, titleClassName, 
     const title = create('div', titleClassName, titleName, container)
     const content = create('div', contentClassName, contentName, container)
     return {title, content}
+}
+export const setupTabs = (tabClass, contentClass, tabActiveClass, contentActiveClass) => {
+    const allTabs = document.querySelectorAll(tabClass)
+    const allTabContent = document.querySelectorAll(contentClass)
+    
+    allTabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+            allTabContent.forEach(content => {
+                content.classList.remove(contentActiveClass)
+            })
+            allTabs.forEach(tab => {
+                tab.classList.remove(tabActiveClass)
+            })
+            allTabs[index].classList.add(tabActiveClass)
+            allTabContent[index].classList.add(contentActiveClass)
+        })
+    })
+}
+export const truncate = (string, stringLengthLimit) => {
+    if (string.length > stringLengthLimit) {
+        return string.substring(0, stringLengthLimit) + '...'
+    } else {
+        return string
+    }
 }
