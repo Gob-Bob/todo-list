@@ -35,3 +35,9 @@ export const truncate = (string, stringLengthLimit) => {
         return string
     }
 }
+export const img = (source, parent) => {
+    const element = document.createElement('img')
+    element.src = source
+    parent.appendChild(element)
+    return element
+}

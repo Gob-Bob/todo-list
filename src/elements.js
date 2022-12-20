@@ -56,10 +56,23 @@ const projectTabs = (title) => {
 
     const addNewTask = (description) => {
         const container = DOMFunctions.create('div', 'individual-task-container', '', taskContainer.content)
-        const checkmarkBox = DOMFunctions.create('div', 'task-checkbox', 'Checkmark Box', container)
+        const checkmarkBox = DOMFunctions.create('input', 'task-checkbox', '', container)
+        checkmarkBox.setAttribute('type', 'checkbox')
         const taskDescription = DOMFunctions.create('div', 'task-description', description, container)
-        const editButton = DOMFunctions.create('div', 'task-edit-button', 'Task Edit Button', container)
-        const deleteButton = DOMFunctions.create('div', 'task-delete-button', 'Task Delete Button', container)
+        const editButton = DOMFunctions.create('button', 'task-edit-button', 'Edit', container)
+        const deleteButton = DOMFunctions.create('button', 'task-delete-button', 'Delete', container)
+        deleteButton.addEventListener('click', () => {
+            const array = [
+                container,
+                checkmarkBox,
+                taskDescription,
+                editButton,
+                deleteButton
+            ]
+            array.forEach(element => {
+                element.remove()
+            })
+        })
     }
     const taskPopup = (className, placeholderDescription) => {
         const container = DOMFunctions.create('div', className + '-container', '', mainContainer)
