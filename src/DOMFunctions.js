@@ -41,6 +41,11 @@ export const img = (source, parent) => {
     parent.appendChild(element)
     return element
 }
+export const deleteElements = (array) => {
+    array.forEach(element => {
+        element.remove()
+    })
+}
 const createPopup = (className, placeholderDescription, runCustomFunction, parent) => {
     const container = create('div', className + '-container', '', parent)
     const window = create('div', className + '-window', '', container)
@@ -54,18 +59,13 @@ const createPopup = (className, placeholderDescription, runCustomFunction, paren
         setButton,
         cancelButton
     ]
-    const closePopup = () => {
-        elementArray.forEach(element => {
-            element.remove()
-        })
-    }
     cancelButton.addEventListener('click', () => {
-        closePopup()
+        deleteElements(elementArray)
     })
     input.setAttribute('placeholder', placeholderDescription)
     setButton.addEventListener('click', () => {
         runCustomFunction(input.value)
-        closePopup()
+        deleteElements(elementArray)
     })
     return elementArray
 }

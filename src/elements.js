@@ -31,58 +31,22 @@ const projectTabs = (title) => {
         const taskDescription = DOMFunctions.create('div', 'task-description', description, container)
         const editButton = DOMFunctions.create('button', 'task-edit-button', 'Edit', container)
         const deleteButton = DOMFunctions.create('button', 'task-delete-button', 'Delete', container)
-        editButton.addEventListener('click', () => {
-            taskPopup('popup', 'Task Description').forEach(element => {
-                element.classList.add('active')
-            })
-        })
-        deleteButton.addEventListener('click', () => {
-            const array = [
-                container,
-                checkmarkBox,
-                taskDescription,
-                editButton,
-                deleteButton
-            ]
-            array.forEach(element => {
-                element.remove()
-            })
-        })
-    }
-    const taskPopup = (className, placeholderDescription) => {
-        const container = DOMFunctions.create('div', className + '-container', '', mainContainer)
-        const window = DOMFunctions.create('div', className + '-window', '', container)
-        const input = DOMFunctions.create('input', className + '-input', '', window)
-        const setButton = DOMFunctions.create('button', className + '-set-button', 'Set', window)
-        const cancelButton = DOMFunctions.create('button', className + '-cancel-button', 'Cancel', window)
         const elementArray = [
             container,
-            window,
-            input,
-            setButton,
-            cancelButton
+            checkmarkBox,
+            taskDescription,
+            editButton,
+            deleteButton
         ]
-        const closePopup = () => {
-            elementArray.forEach(element => {
-                element.classList.remove('active')
-            })
+        deleteButton.addEventListener('click', () => {
+            DOMFunctions.deleteElements(elementArray)
+        })
+        const editTaskDescription = (newDescription) => {
+            taskDescription.innerHTML = newDescription
         }
-        input.setAttribute('placeholder', placeholderDescription)
-        setButton.addEventListener('click', () => {
-            addNewTask(input.value)
-            closePopup()
-            input.value = ''
-        })
-        cancelButton.addEventListener('click', () => {
-            closePopup()
-        })
-        return elementArray
+        DOMFunctions.activatePopup(editButton, 'popup', 'New Task Description', editTaskDescription, mainContainer)
     }
-    newTaskButton.addEventListener('click', () => {
-        taskPopup('popup', 'Task Description').forEach(element => {
-            element.classList.add('active')
-        })
-    })
+    DOMFunctions.activatePopup(newTaskButton, 'popup', 'Task Description', addNewTask, mainContainer)
 }
 // Title of the project on top
 // Project to do items in the middle
