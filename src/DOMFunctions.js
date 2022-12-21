@@ -41,3 +41,31 @@ export const img = (source, parent) => {
     parent.appendChild(element)
     return element
 }
+export const createPopup = (button, className, placeholderDescription, runFunctions, parent) => {
+    const container = create('div', className + '-container', '', parent)
+    const window = create('div', className + '-window', '', container)
+    const input = create('input', className + '-input', '', window)
+    const setButton = create('button', className + '-set-button', 'Set', window)
+    const cancelButton = create('button', className + '-cancel-button', 'Cancel', window)
+    const elementArray = [
+        container,
+        window,
+        input,
+        setButton,
+        cancelButton
+    ]
+    const closePopup = () => {
+        elementArray.forEach(element => {
+            element.remove()
+        })
+    }
+    cancelButton.addEventListener('click', () => {
+        closePopup()
+    })
+    input.setAttribute('placeholder', placeholderDescription)
+    setButton.addEventListener('click', () => {
+        runFunctions(input.value)
+        closePopup()
+    })
+    return elementArray
+}

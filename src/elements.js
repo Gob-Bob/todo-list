@@ -7,43 +7,49 @@ export const sidebar = () => {
         const container = DOMFunctions.createTitleContentContainer('sidebar-container', 'sidebar-title', 'Projects', 'sidebar-content', '', mainContainer)
         const newProjectContainer = DOMFunctions.create('div', 'sidebar-project-container', '', container.content)
         const button = DOMFunctions.create('button', 'sidebar-button', '+', container.content)
+        const nameCustomProject = (input) => {
+            DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input, 12), newProjectContainer)
+            projectTabs(input)
+            DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
+        }
         button.addEventListener('click', () => {
-            popup(newProjectContainer).forEach(element => {
+            const popup = DOMFunctions.createPopup(button, 'popup', 'Project Name', nameCustomProject, mainContainer)
+            popup.forEach(element => {
                 element.classList.add('active')
             })
         })
     })()
-    const popup = (parent) => {
-        const container = DOMFunctions.create('div', 'popup-container', '', mainContainer)
-        const window = DOMFunctions.create('div', 'popup-window', '', container)
-        const input = DOMFunctions.create('input', 'popup-input', '', window)
-        const setButton = DOMFunctions.create('button', 'popup-set-button', 'Set', window)
-        const cancelButton = DOMFunctions.create('button', 'popup-cancel-button', 'Cancel', window)
-        const elementArray = [
-            container,
-            window,
-            input,
-            setButton,
-            cancelButton
-        ]
-        const closePopup = () => {
-            elementArray.forEach(element => {
-                element.classList.remove('active')
-            })
-        }
-        input.setAttribute('placeholder', 'Project Name')
-        setButton.addEventListener('click', () => {
-            DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input.value, 12), parent)
-            closePopup()
-            projectTabs(input.value)
-            DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
-            input.value = ''
-        })
-        cancelButton.addEventListener('click', () => {
-            closePopup()
-        })
-        return elementArray
-    }
+    // const popup = (parent) => {
+    //     const container = DOMFunctions.create('div', 'popup-container', '', mainContainer)
+    //     const window = DOMFunctions.create('div', 'popup-window', '', container)
+    //     const input = DOMFunctions.create('input', 'popup-input', '', window)
+    //     const setButton = DOMFunctions.create('button', 'popup-set-button', 'Set', window)
+    //     const cancelButton = DOMFunctions.create('button', 'popup-cancel-button', 'Cancel', window)
+    //     const elementArray = [
+    //         container,
+    //         window,
+    //         input,
+    //         setButton,
+    //         cancelButton
+    //     ]
+    //     const closePopup = () => {
+    //         elementArray.forEach(element => {
+    //             element.classList.remove('active')
+    //         })
+    //     }
+    //     input.setAttribute('placeholder', 'Project Name')
+    //     setButton.addEventListener('click', () => {
+    //         DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input.value, 12), parent)
+    //         closePopup()
+    //         projectTabs(input.value)
+    //         DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
+    //         input.value = ''
+    //     })
+    //     cancelButton.addEventListener('click', () => {
+    //         closePopup()
+    //     })
+    //     return elementArray
+    // }
 }
 const projectTabs = (title) => {
     // The page should contain the option to add tasks to a todo list
@@ -61,6 +67,11 @@ const projectTabs = (title) => {
         const taskDescription = DOMFunctions.create('div', 'task-description', description, container)
         const editButton = DOMFunctions.create('button', 'task-edit-button', 'Edit', container)
         const deleteButton = DOMFunctions.create('button', 'task-delete-button', 'Delete', container)
+        editButton.addEventListener('click', () => {
+            taskPopup('popup', 'Task Description').forEach(element => {
+                element.classList.add('active')
+            })
+        })
         deleteButton.addEventListener('click', () => {
             const array = [
                 container,
