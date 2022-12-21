@@ -6,13 +6,13 @@ export const sidebar = () => {
     const sidebarMenu = (() => {
         const container = DOMFunctions.createTitleContentContainer('sidebar-container', 'sidebar-title', 'Projects', 'sidebar-content', '', mainContainer)
         const newProjectContainer = DOMFunctions.create('div', 'sidebar-project-container', '', container.content)
-        const button = DOMFunctions.create('button', 'sidebar-button', '+', container.content)
+        const newProjectButton = DOMFunctions.create('button', 'sidebar-new-project-button', '+', container.content)
         const nameCustomProject = (input) => {
             DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input, 12), newProjectContainer)
             projectTabs(input)
             DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
         }
-        DOMFunctions.activatePopup(button, 'popup', 'Project Name', nameCustomProject, mainContainer)
+        DOMFunctions.activatePopup(newProjectButton, 'popup', 'Project Name', nameCustomProject, mainContainer)
     })()
 }
 const projectTabs = (title) => {
@@ -20,9 +20,18 @@ const projectTabs = (title) => {
     // Each task should be a container and it should have a checkmark box, description, edit, and delete button 
     // Each task that is checkmarked should be moved to a completed drop down menu that can be minimized
 
-    const mainContentContainer = DOMFunctions.createTitleContentContainer('project-details-container', 'project-details-title', title, 'project-details-content', '', mainContainer)
+    const mainContentContainer = DOMFunctions.createTitleContentContainer('project-details-container', 'project-details-header', '', 'project-details-content', '', mainContainer)
+    const projectTitle = DOMFunctions.create('div', 'project-details-title', title, mainContentContainer.firstElement)
+    const editProjectNameButton = DOMFunctions.create('button', 'project-details-edit-name-button', 'Edit', mainContentContainer.firstElement)
     const taskContainer = DOMFunctions.createTitleContentContainer('todo-container', 'todo-title', 'Todo List', 'task-container', '', mainContentContainer.content)
     const newTaskButton = DOMFunctions.create('button', 'new-task-button', '+', mainContentContainer.content)
+
+    const newProjectName = (newName) => {
+        projectTitle.innerHTML = newName
+        const activeProjectTab = document.querySelector('.project-tab-active')
+        activeProjectTab.innerHTML = DOMFunctions.truncate(newName, 12)
+    }
+    DOMFunctions.activatePopup(editProjectNameButton, 'popup', 'New Project Name', newProjectName, mainContainer)
 
     const addNewTask = (description) => {
         const container = DOMFunctions.create('div', 'individual-task-container', '', taskContainer.content)

@@ -7,9 +7,9 @@ export const create = (type, className, innerText, parent) => {
 }
 export const createTitleContentContainer = (containerClassName, titleClassName, titleName, contentClassName, contentName, parent) => {
     const container = create('div', containerClassName, '', parent)
-    const title = create('div', titleClassName, titleName, container)
+    const firstElement = create('div', titleClassName, titleName, container)
     const content = create('div', contentClassName, contentName, container)
-    return {title, content}
+    return {firstElement, content}
 }
 export const setupTabs = (tabClass, contentClass, tabActiveClass, contentActiveClass) => {
     const allTabs = document.querySelectorAll(tabClass)
