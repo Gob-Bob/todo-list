@@ -41,7 +41,7 @@ export const img = (source, parent) => {
     parent.appendChild(element)
     return element
 }
-export const createPopup = (button, className, placeholderDescription, runFunctions, parent) => {
+const createPopup = (className, placeholderDescription, runCustomFunction, parent) => {
     const container = create('div', className + '-container', '', parent)
     const window = create('div', className + '-window', '', container)
     const input = create('input', className + '-input', '', window)
@@ -64,8 +64,16 @@ export const createPopup = (button, className, placeholderDescription, runFuncti
     })
     input.setAttribute('placeholder', placeholderDescription)
     setButton.addEventListener('click', () => {
-        runFunctions(input.value)
+        runCustomFunction(input.value)
         closePopup()
     })
     return elementArray
+}
+export const activatePopup = (button, className, placeholderDescription, runCustomFunction, parent) => {
+    button.addEventListener('click', () => {
+        const array = createPopup(className, placeholderDescription, runCustomFunction, parent)
+        array.forEach(element => {
+            element.classList.add('active')
+        })
+    })
 }

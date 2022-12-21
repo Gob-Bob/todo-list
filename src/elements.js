@@ -12,44 +12,8 @@ export const sidebar = () => {
             projectTabs(input)
             DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
         }
-        button.addEventListener('click', () => {
-            const popup = DOMFunctions.createPopup(button, 'popup', 'Project Name', nameCustomProject, mainContainer)
-            popup.forEach(element => {
-                element.classList.add('active')
-            })
-        })
+        DOMFunctions.activatePopup(button, 'popup', 'Project Name', nameCustomProject, mainContainer)
     })()
-    // const popup = (parent) => {
-    //     const container = DOMFunctions.create('div', 'popup-container', '', mainContainer)
-    //     const window = DOMFunctions.create('div', 'popup-window', '', container)
-    //     const input = DOMFunctions.create('input', 'popup-input', '', window)
-    //     const setButton = DOMFunctions.create('button', 'popup-set-button', 'Set', window)
-    //     const cancelButton = DOMFunctions.create('button', 'popup-cancel-button', 'Cancel', window)
-    //     const elementArray = [
-    //         container,
-    //         window,
-    //         input,
-    //         setButton,
-    //         cancelButton
-    //     ]
-    //     const closePopup = () => {
-    //         elementArray.forEach(element => {
-    //             element.classList.remove('active')
-    //         })
-    //     }
-    //     input.setAttribute('placeholder', 'Project Name')
-    //     setButton.addEventListener('click', () => {
-    //         DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input.value, 12), parent)
-    //         closePopup()
-    //         projectTabs(input.value)
-    //         DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
-    //         input.value = ''
-    //     })
-    //     cancelButton.addEventListener('click', () => {
-    //         closePopup()
-    //     })
-    //     return elementArray
-    // }
 }
 const projectTabs = (title) => {
     // The page should contain the option to add tasks to a todo list
