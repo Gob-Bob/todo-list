@@ -114,3 +114,13 @@ body {
     justify-content: center;
     align-items: center;
 }
+.project-details-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+img {
+    width: 15px;
+    height: auto;
+}

@@ -9,7 +9,7 @@ export const createTitleContentContainer = (containerClassName, titleClassName, 
     const container = create('div', containerClassName, '', parent)
     const firstElement = create('div', titleClassName, titleName, container)
     const content = create('div', contentClassName, contentName, container)
-    return {firstElement, content}
+    return {container, firstElement, content}
 }
 export const setupTabs = (tabClass, contentClass, tabActiveClass, contentActiveClass) => {
     const allTabs = document.querySelectorAll(tabClass)
@@ -35,16 +35,22 @@ export const truncate = (string, stringLengthLimit) => {
         return string
     }
 }
-export const img = (source, parent) => {
+export const img = (source, className, parent) => {
     const element = document.createElement('img')
+    element.classList.add(className)
     element.src = source
     parent.appendChild(element)
     return element
 }
-export const deleteElements = (array) => {
-    array.forEach(element => {
-        element.remove()
+export const deleteElements = array => {
+    array.forEach(item => {
+        item.remove()
     })
+}
+export const deletePropertiesOfObject = inputObject => {
+    for (const [key, value] of Object.entries(inputObject)) {
+        value.remove()
+    }
 }
 const createPopup = (className, placeholderDescription, runCustomFunction, parent) => {
     const container = create('div', className + '-container', '', parent)
