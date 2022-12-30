@@ -48,11 +48,13 @@ const projectTabs = (title) => {
 
     const addNewTask = (description) => {
         const container = DOMFunctions.create('div', 'individual-task-container', '', taskContainer.content)
-        const checkmarkBox = DOMFunctions.create('input', 'task-checkbox', '', container)
+        const firstHalfElements = DOMFunctions.create('div', 'task-firsthalf-container', '', container)
+        const secondHalfElements = DOMFunctions.create('div', 'task-secondhalf-container', '', container)
+        const checkmarkBox = DOMFunctions.create('input', 'task-checkbox', '', firstHalfElements)
         checkmarkBox.setAttribute('type', 'checkbox')
-        const taskDescription = DOMFunctions.create('div', 'task-description', description, container)
-        const editButton = DOMFunctions.create('button', 'task-edit-button', 'Edit', container)
-        const deleteButton = DOMFunctions.create('button', 'task-delete-button', 'Delete', container)
+        const taskDescription = DOMFunctions.create('div', 'task-description', description, firstHalfElements)
+        const editButton = DOMFunctions.create('button', 'task-edit-button', 'Edit', secondHalfElements)
+        const deleteButton = DOMFunctions.create('button', 'task-delete-button', 'Delete', secondHalfElements)
         const elementArray = [
             container,
             checkmarkBox,

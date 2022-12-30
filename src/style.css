@@ -7,7 +7,6 @@ body {
 .main-container {
     display: flex;
     height: 100%;
-    gap: 10px; 
 }
 
 .popup-container {
@@ -92,6 +91,7 @@ body {
 .project-details-container {
     display: none;
     flex-direction: column;
+    width: 100%;
 }
 
 .project-details-title {
@@ -99,20 +99,35 @@ body {
     font-size: 30px;
     font-weight: 550;
 }
+.todo-container {
+    width: 100%
+}
 .todo-title {
-    border-bottom: 2px solid black;
     font-size: 20px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding-left: 10px;
+    font-weight: 550;
 }
 .individual-task-container {
     display: flex;
     gap: 10px;
-    padding: 10px 0 10px 0;
+    padding: 10px 50px 10px 0;
+    justify-content: space-between;
+}
+.task-firsthalf-container {
+    display: flex;
+    gap: 10px;
+}
+.task-secondhalf-container {
+    display: flex;
+    gap: 10px;
 }
 .project-details-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 .project-details-header {
     display: flex;
@@ -123,4 +138,18 @@ body {
 img {
     width: 15px;
     height: auto;
+}
+.task-container {
+    padding-left: 25px;
+    width: 100%;
+}
+.new-task-button {
+    margin-left: 25px;
+    margin-top: 10px;
+    width: 20px;
+    height: auto;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 600;
 }
