@@ -83,3 +83,15 @@ export const activatePopup = (button, className, placeholderDescription, runCust
         })
     })
 }
+export const createPriorityValue = (parent) => {
+    const array = [
+        'None',
+        'High',
+        'Medium',
+        'Low'
+    ]
+    array.forEach(priorityLevel => {
+        const element = create('option', 'priority-option', priorityLevel, parent)
+        element.setAttribute('value', priorityLevel.toLowerCase())
+    })
+}

@@ -16,24 +16,12 @@ export const sidebar = () => {
     DOMFunctions.activatePopup(newProjectButton, 'popup', 'Project Name', nameCustomProject, mainContainer)
 }
 const projectTabs = (title) => {
-    // The page should contain the option to add tasks to a todo list
-    // Each task should be a container and it should have a checkmark box, description, edit, and delete button 
-    // Each task that is checkmarked should be moved to a completed drop down menu that can be minimized
-
     const mainContentContainer = DOMFunctions.createTitleContentContainer('project-details-container', 'project-details-header', '', 'project-details-content', '', mainContainer)
     const projectTitle = DOMFunctions.create('div', 'project-details-title', title, mainContentContainer.firstElement)
     const editProjectNameButton = DOMFunctions.img(editImg, 'edit-project-name-button', mainContentContainer.firstElement)
     const deleteProjectButton = DOMFunctions.img(deleteImg, 'delete-project-name-button', mainContentContainer.firstElement)
     const taskContainer = DOMFunctions.createTitleContentContainer('todo-container', 'todo-title', 'Todo List', 'task-container', '', mainContentContainer.content)
     const newTaskButton = DOMFunctions.create('button', 'new-task-button', '+', mainContentContainer.content)
-    const elementArray = [
-        // mainContentContainer,
-        projectTitle,
-        editProjectNameButton,
-        deleteProjectButton,
-        // taskContainer,
-        newTaskButton
-    ]
     const newProjectName = (newName) => {
         projectTitle.innerHTML = newName
         const activeProjectTab = document.querySelector('.project-tab-active')
@@ -52,6 +40,9 @@ const projectTabs = (title) => {
         const secondHalfElements = DOMFunctions.create('div', 'task-secondhalf-container', '', container)
         const checkmarkBox = DOMFunctions.create('input', 'task-checkbox', '', firstHalfElements)
         checkmarkBox.setAttribute('type', 'checkbox')
+        const priorityContainer = DOMFunctions.create('select', 'priority-container', '', firstHalfElements)
+        priorityContainer.setAttribute('name', 'Priority')
+        DOMFunctions.createPriorityValue(priorityContainer)
         const taskDescription = DOMFunctions.create('div', 'task-description', description, firstHalfElements)
         const editButton = DOMFunctions.create('button', 'task-edit-button', 'Edit', secondHalfElements)
         const deleteButton = DOMFunctions.create('button', 'task-delete-button', 'Delete', secondHalfElements)
@@ -72,5 +63,3 @@ const projectTabs = (title) => {
     }
     DOMFunctions.activatePopup(newTaskButton, 'popup', 'Task Description', addNewTask, mainContainer)
 }
-// Title of the project on top
-// Project to do items in the middle
