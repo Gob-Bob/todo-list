@@ -40,10 +40,9 @@ const projectTabs = (title) => {
         activeProjectTab.innerHTML = DOMFunctions.truncate(newName, 12)
     }
     deleteProjectButton.addEventListener('click', () => {
-        // DOMFunctions.deleteElements(elementArray)
         DOMFunctions.deletePropertiesOfObject(mainContentContainer)
-        const sidebarProject = document.querySelector('.sidebar-project')
-        sidebarProject.remove()
+        const activeProjectTab = document.querySelector('.project-tab-active')
+        activeProjectTab.remove()
     })
     DOMFunctions.activatePopup(editProjectNameButton, 'popup', 'New Project Name', newProjectName, mainContainer)
 
