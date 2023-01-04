@@ -83,7 +83,7 @@ export const activatePopup = (button, className, placeholderDescription, runCust
         })
     })
 }
-export const createPriorityValue = (parent) => {
+export const createPriorityValues = (parent) => {
     const array = [
         'None',
         'High',

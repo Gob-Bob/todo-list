@@ -110,6 +110,32 @@ body {
     font-weight: 550;
 }
 .individual-task-container {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto auto;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 5px;
+    border-bottom: 1px solid black;
+}
+.task-category-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    font-size: 15px;
+    padding-top: 10px;
+    text-decoration: underline;
+    font-weight: 550;
+}
+.task-category-priority {
+    padding-left: 28px;
+}
+.task-category-description {
+    padding-left: 30px;
+}
+.task-category-dueDate {
+    padding-right: 190px;
+}
+/* .individual-task-container {
     display: flex;
     gap: 10px;
     padding: 10px 50px 10px 0;
@@ -118,11 +144,11 @@ body {
 .task-firsthalf-container {
     display: flex;
     gap: 10px;
-}
-.task-secondhalf-container {
+} */
+/* .task-secondhalf-container {
     display: flex;
     gap: 10px;
-}
+} */
 .project-details-content {
     display: flex;
     flex-direction: column;

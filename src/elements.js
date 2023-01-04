@@ -21,6 +21,10 @@ const projectTabs = (title) => {
     const editProjectNameButton = DOMFunctions.img(editImg, 'edit-project-name-button', mainContentContainer.firstElement)
     const deleteProjectButton = DOMFunctions.img(deleteImg, 'delete-project-name-button', mainContentContainer.firstElement)
     const taskContainer = DOMFunctions.createTitleContentContainer('todo-container', 'todo-title', 'Todo List', 'task-container', '', mainContentContainer.content)
+    const header = DOMFunctions.create('div', 'task-category-container', '', taskContainer.content)
+    const priority = DOMFunctions.create('div', 'task-category-priority', 'Priority', header)
+    const description = DOMFunctions.create('div', 'task-category-description', 'Description', header)
+    const dueDate = DOMFunctions.create('div', 'task-category-dueDate', 'Due Date', header)
     const newTaskButton = DOMFunctions.create('button', 'new-task-button', '+', mainContentContainer.content)
     const newProjectName = (newName) => {
         projectTitle.innerHTML = newName
@@ -36,16 +40,19 @@ const projectTabs = (title) => {
 
     const addNewTask = (description) => {
         const container = DOMFunctions.create('div', 'individual-task-container', '', taskContainer.content)
-        const firstHalfElements = DOMFunctions.create('div', 'task-firsthalf-container', '', container)
-        const secondHalfElements = DOMFunctions.create('div', 'task-secondhalf-container', '', container)
-        const checkmarkBox = DOMFunctions.create('input', 'task-checkbox', '', firstHalfElements)
+        // const firstHalfElements = DOMFunctions.create('div', 'task-firsthalf-container', '', container)
+        // const secondHalfElements = DOMFunctions.create('div', 'task-secondhalf-container', '', container)
+        const checkmarkBox = DOMFunctions.create('input', 'task-checkbox', '', container)
         checkmarkBox.setAttribute('type', 'checkbox')
-        const priorityContainer = DOMFunctions.create('select', 'priority-container', '', firstHalfElements)
+        const priorityContainer = DOMFunctions.create('select', 'priority-container', '', container)
         priorityContainer.setAttribute('name', 'Priority')
-        DOMFunctions.createPriorityValue(priorityContainer)
-        const taskDescription = DOMFunctions.create('div', 'task-description', description, firstHalfElements)
-        const editButton = DOMFunctions.create('button', 'task-edit-button', 'Edit', secondHalfElements)
-        const deleteButton = DOMFunctions.create('button', 'task-delete-button', 'Delete', secondHalfElements)
+        DOMFunctions.createPriorityValues(priorityContainer)
+        const taskDescription = DOMFunctions.create('div', 'task-description', description, container)
+        const datePicker = DOMFunctions.create('input', 'task-date', '', container)
+        datePicker.setAttribute('type', 'date')
+        datePicker.setAttribute('placeholder', 'Custom Due Date')
+        const editButton = DOMFunctions.create('button', 'task-edit-button', 'Edit', container)
+        const deleteButton = DOMFunctions.create('button', 'task-delete-button', 'Delete', container)
         const elementArray = [
             container,
             checkmarkBox,
