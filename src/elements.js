@@ -8,10 +8,20 @@ export const sidebar = () => {
     const container = DOMFunctions.createTitleContentContainer('sidebar-container', 'sidebar-title', 'Projects', 'sidebar-content', '', mainContainer)
     const newProjectContainer = DOMFunctions.create('div', 'sidebar-project-container', '', container.content)
     const newProjectButton = DOMFunctions.create('button', 'sidebar-new-project-button', '+', container.content)
+    const customProjectArray = JSON.parse(localStorage.getItem('customProjects')) || []
+    customProjectArray.forEach(element => {
+        DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(element, 12), newProjectContainer)
+        projectTabs(element)
+        DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
+    })
     const nameCustomProject = (input) => {
-        DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input, 12), newProjectContainer)
+        // DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input, 12), newProjectContainer)
         projectTabs(input)
         DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
+
+        DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input, 12), newProjectContainer)
+        array.push(input)
+        localStorage.setItem('customProjects', JSON.stringify(array))
     }
     DOMFunctions.activatePopup(newProjectButton, 'popup', 'Project Name', nameCustomProject, mainContainer)
 }

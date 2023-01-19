@@ -95,3 +95,9 @@ export const createPriorityValues = (parent) => {
         element.setAttribute('value', priorityLevel.toLowerCase())
     })
 }
+export const createCustomProject = (name, parent) => {
+    const array = JSON.parse(localStorage.getItem('customProjects')) || []
+    create('div', 'sidebar-project', truncate(name, 12), parent)
+    array.push(name)
+    localStorage.setItem('customProjects', JSON.stringify(array))
+}
