@@ -95,14 +95,13 @@ export const createPriorityValues = (parent) => {
         element.setAttribute('value', priorityLevel.toLowerCase())
     })
 }
-export const createCustomProject = (name, parent) => {
-    const array = JSON.parse(localStorage.getItem('customProjects')) || []
-    create('div', 'sidebar-project', truncate(name, 12), parent)
-    array.push(name)
-    localStorage.setItem('customProjects', JSON.stringify(array))
-}
 export const deleteCustomProject = (name, array) => {
     const index = array.indexOf(name)
     array.splice(index, 1)
+    localStorage.setItem('customProjects', JSON.stringify(array))
+}
+export const renameCustomProject = (oldName, newName, array) => {
+    const index = array.indexOf(oldName)
+    array[index] = newName
     localStorage.setItem('customProjects', JSON.stringify(array))
 }

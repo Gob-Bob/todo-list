@@ -15,7 +15,6 @@ export const sidebar = () => {
         DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
     })
     const nameCustomProject = (input) => {
-        // DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input, 12), newProjectContainer)
         projectTabs(input, customProjectArray)
         customProjectArray.push(input)
         localStorage.setItem('customProjects', JSON.stringify(customProjectArray))
@@ -39,6 +38,7 @@ const projectTabs = (title, array) => {
         projectTitle.innerHTML = newName
         const activeProjectTab = document.querySelector('.project-tab-active')
         activeProjectTab.innerHTML = DOMFunctions.truncate(newName, 12)
+        DOMFunctions.renameCustomProject(title, newName, array)
     }
     deleteProjectButton.addEventListener('click', () => {
         DOMFunctions.deletePropertiesOfObject(mainContentContainer)
@@ -50,8 +50,6 @@ const projectTabs = (title, array) => {
 
     const addNewTask = (description) => {
         const container = DOMFunctions.create('div', 'individual-task-container', '', taskContainer.content)
-        // const firstHalfElements = DOMFunctions.create('div', 'task-firsthalf-container', '', container)
-        // const secondHalfElements = DOMFunctions.create('div', 'task-secondhalf-container', '', container)
         const checkmarkBox = DOMFunctions.create('input', 'task-checkbox', '', container)
         checkmarkBox.setAttribute('type', 'checkbox')
         const priorityContainer = DOMFunctions.create('select', 'priority-container', '', container)
