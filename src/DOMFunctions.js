@@ -101,3 +101,8 @@ export const createCustomProject = (name, parent) => {
     array.push(name)
     localStorage.setItem('customProjects', JSON.stringify(array))
 }
+export const deleteCustomProject = (name, array) => {
+    const index = array.indexOf(name)
+    array.splice(index, 1)
+    localStorage.setItem('customProjects', JSON.stringify(array))
+}

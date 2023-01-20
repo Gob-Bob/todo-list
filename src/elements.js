@@ -11,21 +11,20 @@ export const sidebar = () => {
     const customProjectArray = JSON.parse(localStorage.getItem('customProjects')) || []
     customProjectArray.forEach(element => {
         DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(element, 12), newProjectContainer)
-        projectTabs(element)
+        projectTabs(element, customProjectArray)
         DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
     })
     const nameCustomProject = (input) => {
         // DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input, 12), newProjectContainer)
-        projectTabs(input)
-        DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
-
+        projectTabs(input, customProjectArray)
+        customProjectArray.push(input)
+        localStorage.setItem('customProjects', JSON.stringify(customProjectArray))
         DOMFunctions.create('div', 'sidebar-project', DOMFunctions.truncate(input, 12), newProjectContainer)
-        array.push(input)
-        localStorage.setItem('customProjects', JSON.stringify(array))
+        DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
     }
     DOMFunctions.activatePopup(newProjectButton, 'popup', 'Project Name', nameCustomProject, mainContainer)
 }
-const projectTabs = (title) => {
+const projectTabs = (title, array) => {
     const mainContentContainer = DOMFunctions.createTitleContentContainer('project-details-container', 'project-details-header', '', 'project-details-content', '', mainContainer)
     const projectTitle = DOMFunctions.create('div', 'project-details-title', title, mainContentContainer.firstElement)
     const editProjectNameButton = DOMFunctions.img(editImg, 'edit-project-name-button', mainContentContainer.firstElement)
@@ -45,6 +44,7 @@ const projectTabs = (title) => {
         DOMFunctions.deletePropertiesOfObject(mainContentContainer)
         const activeProjectTab = document.querySelector('.project-tab-active')
         activeProjectTab.remove()
+        DOMFunctions.deleteCustomProject(title, array)
     })
     DOMFunctions.activatePopup(editProjectNameButton, 'popup', 'New Project Name', newProjectName, mainContainer)
 
