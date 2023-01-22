@@ -105,3 +105,68 @@ export const renameCustomProject = (oldName, newName, array) => {
     array[index] = newName
     localStorage.setItem('customProjects', JSON.stringify(array))
 }
+export const addProject = (name, projectArray) => {
+    projectArray.push({
+        name
+    })
+    localStorage.setItem('projects', JSON.stringify(projectArray))
+    return ({ name })
+}
+export const createProject = (object, parent) => {
+    create('div', 'sidebar-project', truncate(object.name, 12), parent)
+}
+export const createProjectTab = (title, editImg, deleteImg) => {
+    const mainContentContainer = createTitleContentContainer('project-details-container', 'project-details-header', '', 'project-details-content', '', mainContainer)
+    const projectTitle = create('div', 'project-details-title', title, mainContentContainer.firstElement)
+    const editProjectNameButton = img(editImg, 'edit-project-name-button', mainContentContainer.firstElement)
+    const deleteProjectButton = img(deleteImg, 'delete-project-name-button', mainContentContainer.firstElement)
+    const taskContainer = createTitleContentContainer('todo-container', 'todo-title', 'Todo List', 'task-container', '', mainContentContainer.content)
+    const header = create('div', 'task-category-container', '', taskContainer.content)
+    const priority = create('div', 'task-category-priority', 'Priority', header)
+    const description = create('div', 'task-category-description', 'Description', header)
+    const dueDate = create('div', 'task-category-dueDate', 'Due Date', header)
+    const newTaskButton = create('button', 'new-task-button', '+', mainContentContainer.content)
+    const newProjectName = (newName) => {
+        projectTitle.innerHTML = newName
+        const activeProjectTab = document.querySelector('.project-tab-active')
+        activeProjectTab.innerHTML = truncate(newName, 12)
+        renameCustomProject(title, newName, array)
+    }
+    deleteProjectButton.addEventListener('click', () => {
+        deletePropertiesOfObject(mainContentContainer)
+        const activeProjectTab = document.querySelector('.project-tab-active')
+        activeProjectTab.remove()
+        deleteCustomProject(title, array)
+    })
+    activatePopup(editProjectNameButton, 'popup', 'New Project Name', newProjectName, mainContainer)
+
+    const addNewTask = (description) => {
+        const container = create('div', 'individual-task-container', '', taskContainer.content)
+        const checkmarkBox = create('input', 'task-checkbox', '', container)
+        checkmarkBox.setAttribute('type', 'checkbox')
+        const priorityContainer = create('select', 'priority-container', '', container)
+        priorityContainer.setAttribute('name', 'Priority')
+        createPriorityValues(priorityContainer)
+        const taskDescription = create('div', 'task-description', description, container)
+        const datePicker = create('input', 'task-date', '', container)
+        datePicker.setAttribute('type', 'date')
+        datePicker.setAttribute('placeholder', 'Custom Due Date')
+        const editButton = create('button', 'task-edit-button', 'Edit', container)
+        const deleteButton = create('button', 'task-delete-button', 'Delete', container)
+        const elementArray = [
+            container,
+            checkmarkBox,
+            taskDescription,
+            editButton,
+            deleteButton
+        ]
+        deleteButton.addEventListener('click', () => {
+            deleteElements(elementArray)
+        })
+        const editTaskDescription = (newDescription) => {
+            taskDescription.innerHTML = newDescription
+        }
+        activatePopup(editButton, 'popup', 'New Task Description', editTaskDescription, mainContainer)
+    }
+    activatePopup(newTaskButton, 'popup', 'Task Description', addNewTask, mainContainer)
+}
