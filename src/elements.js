@@ -8,14 +8,17 @@ export const sidebar = () => {
     const container = DOMFunctions.createTitleContentContainer('sidebar-container', 'sidebar-title', 'Projects', 'sidebar-content', '', mainContainer)
     const newProjectContainer = DOMFunctions.create('div', 'sidebar-project-container', '', container.content)
     const newProjectButton = DOMFunctions.create('button', 'sidebar-new-project-button', '+', container.content)
-    const projectArray = JSON.parse(localStorage.getItem('projects')) || []
+    const projectArray = JSON.parse(localStorage.getItem('customProjects')) || []
     projectArray.forEach(object => {
         DOMFunctions.createProject(object, newProjectContainer)
+        DOMFunctions.createProjectTab(object.name, projectArray, editImg, deleteImg, mainContainer)
+        DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
     })
     const customProjectCreation = projectNameUserInput => {
         const newProject = DOMFunctions.addProject(projectNameUserInput, projectArray)
         DOMFunctions.createProject(newProject, newProjectContainer)
-        DOMFunctions.createProjectTab(projectNameUserInput, editImg, deleteImg)
+        DOMFunctions.createProjectTab(projectNameUserInput, projectArray, editImg, deleteImg, mainContainer)
+        DOMFunctions.setupTabs('.sidebar-project', '.project-details-container', 'project-tab-active', 'project-content-active')
     }
     DOMFunctions.activatePopup(newProjectButton, 'popup', 'Project Name', customProjectCreation, mainContainer)
     // const customProjectArray = JSON.parse(localStorage.getItem('customProjects')) || []

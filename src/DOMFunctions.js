@@ -109,14 +109,14 @@ export const addProject = (name, projectArray) => {
     projectArray.push({
         name
     })
-    localStorage.setItem('projects', JSON.stringify(projectArray))
+    localStorage.setItem('customProjects', JSON.stringify(projectArray))
     return ({ name })
 }
 export const createProject = (object, parent) => {
     create('div', 'sidebar-project', truncate(object.name, 12), parent)
 }
-export const createProjectTab = (title, editImg, deleteImg) => {
-    const mainContentContainer = createTitleContentContainer('project-details-container', 'project-details-header', '', 'project-details-content', '', mainContainer)
+export const createProjectTab = (title, array, editImg, deleteImg, parent) => {
+    const mainContentContainer = createTitleContentContainer('project-details-container', 'project-details-header', '', 'project-details-content', '', parent)
     const projectTitle = create('div', 'project-details-title', title, mainContentContainer.firstElement)
     const editProjectNameButton = img(editImg, 'edit-project-name-button', mainContentContainer.firstElement)
     const deleteProjectButton = img(deleteImg, 'delete-project-name-button', mainContentContainer.firstElement)
@@ -138,7 +138,7 @@ export const createProjectTab = (title, editImg, deleteImg) => {
         activeProjectTab.remove()
         deleteCustomProject(title, array)
     })
-    activatePopup(editProjectNameButton, 'popup', 'New Project Name', newProjectName, mainContainer)
+    activatePopup(editProjectNameButton, 'popup', 'New Project Name', newProjectName, parent)
 
     const addNewTask = (description) => {
         const container = create('div', 'individual-task-container', '', taskContainer.content)
@@ -166,7 +166,7 @@ export const createProjectTab = (title, editImg, deleteImg) => {
         const editTaskDescription = (newDescription) => {
             taskDescription.innerHTML = newDescription
         }
-        activatePopup(editButton, 'popup', 'New Task Description', editTaskDescription, mainContainer)
+        activatePopup(editButton, 'popup', 'New Task Description', editTaskDescription, parent)
     }
-    activatePopup(newTaskButton, 'popup', 'Task Description', addNewTask, mainContainer)
+    activatePopup(newTaskButton, 'popup', 'Task Description', addNewTask, parent)
 }
